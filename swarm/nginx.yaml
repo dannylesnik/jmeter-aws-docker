@@ -1,0 +1,14 @@
+version: '3'
+services:
+    nginx:
+        hostname: nginx
+        image: nginx:latest
+        ports:
+            - 80:80
+#        environment:
+#            TYPE: "MASTER"
+#            AUTO_REBALANCE: "true"
+        networks:
+            - net
+networks:
+  net:

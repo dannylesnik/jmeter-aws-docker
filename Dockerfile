@@ -14,7 +14,7 @@ ENV JMETER_HOME=/usr/share/apache-jmeter \
     JMETER_VERSION=5.1.1 \
     TEST_SCRIPT_FILE=/var/jmeter/test.jmx \
     TEST_LOG_FILE=/var/jmeter/test.log \
-    TEST_RESULTS_FILE=/var/jmeter/test-result.xml \
+    TEST_RESULTS_FILE=/var/jmeter/test-result.csv \
     #USE_CACHED_SSL_CONTEXT=false \
     NUMBER_OF_THREADS=1000 \
     RAMP_UP_TIME=25 \
@@ -64,7 +64,7 @@ CMD echo -n > $TEST_LOG_FILE && \
   #  -Djavax.net.ssl.keyStore=$KEYSTORE_FILE \
   #  -Djavax.net.ssl.keyStorePassword=$KEYSTORE_PASSWORD \
   #  -Jhttps.use.cached.ssl.context=$USE_CACHED_SSL_CONTEXT \
-    -Jjmeter.save.saveservice.output_format=xml \
+    -Jjmeter.save.saveservice.output_format=csv \
     -Jjmeter.save.saveservice.response_data=true \
     -Jjmeter.save.saveservice.samplerData=true \
     -JnumberOfThreads=$NUMBER_OF_THREADS \
@@ -86,8 +86,8 @@ CMD echo -n > $TEST_LOG_FILE && \
     -JsendDataReadTimeout=$SEND_DATA_READ_TIMEOUT \
     -JcloseConnectionWaitTime=$CLOSE_CONNECTION_WAIT_TIME \
     -JcloseConnectionReadTimeout=$CLOSE_CONNECTION_READ_TIMEOUT && \
-    aws s3 cp $TEST_LOG_FILE s3://${BUCKET_NAME}/uploads/ && \
-    aws s3 cp $TEST_RESULTS_FILE s3://${BUCKET_NAME}/uploads/ && \
+    aws s3 cp $TEST_LOG_FILE s3://${BUCKET_NAME}/test_logs/ && \
+    aws s3 cp $TEST_RESULTS_FILE s3://${BUCKET_NAME}/test_results/${EXECUTION_ID}/ && \
     echo -e "\n\n===== TEST LOGS =====\n\n" && \
     sleep 10000h && \
     cat $TEST_LOG_FILE && \

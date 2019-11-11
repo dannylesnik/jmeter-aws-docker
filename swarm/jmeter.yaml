@@ -15,15 +15,16 @@ services:
                 AWS_ACCESS_KEY_ID: "[]" 
                 AWS_SECRET_ACCESS_KEY: "[]"
                 AWS_DEFAULT_REGION: "us-east-1"
-                BUCKET_NAME: "[]"
+                BUCKET_NAME: "wildrydes-danny-lesnik"
+                EXECUTION_ID: "aaa4"
         networks:
         - net
 networks:
   net:
 configs:
   jmeter-scenario:
-    file: my_script.jmx
+    file: ../my_script.jmx
     name: jmeter-jmx-file
   jmeter-log:
-    file: ./configs/log4j2.xml
+    file: ../configs/log4j2.xml
     name: jmeter-log-file
